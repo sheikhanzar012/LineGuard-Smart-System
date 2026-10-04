@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LineGuard Smart System</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#07111f;color:#eaf2ff;font-family:Segoe UI,Arial,sans-serif}.header{min-height:76px;background:#0d1a2d;border-bottom:1px solid #263b58;display:flex;align-items:center;justify-content:space-between;padding:15px 28px}.logo{display:flex;gap:12px;align-items:center}.logo-icon{font-size:30px}.logo-title{font-size:22px;font-weight:800}.logo-subtitle{font-size:12px;color:#8fa7c5}.header-right{display:flex;gap:15px;align-items:center}.online{color:#42d69b;font-weight:700}.station{background:#172a44;padding:9px 14px;border-radius:8px;font-size:13px}.container{max-width:1200px;margin:auto;padding:22px}.card{background:#0e1c30;border:1px solid #263c5a;border-radius:14px;padding:20px;margin-bottom:18px}.card-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.card-title h2{margin:0;font-size:18px}.badge{background:#182d48;color:#9fc8f7;padding:7px 11px;border-radius:20px;font-size:11px;font-weight:800}.inputs{display:grid;gap:10px}input,select{width:100%;padding:13px;background:#091626;color:#fff;border:1px solid #304968;border-radius:9px;font-size:14px}label{color:#91a9c5;font-size:13px;font-weight:600}button{border:0;border-radius:9px;padding:13px 18px;font-weight:800;cursor:pointer;margin:4px}button:disabled{opacity:.35;cursor:not-allowed}.blue{background:#48a8ff;color:#06111d}.green{background:#3bd69b;color:#06111d}.yellow{background:#f4c95d;color:#151003}.red{background:#fb7185;color:#16070a}.purple{background:#b38cff;color:#160d24}.login-wrapper{max-width:500px;margin:70px auto}.login-icon{text-align:center;font-size:55px}.login-title{text-align:center;font-size:26px;font-weight:800}.login-subtitle{text-align:center;color:#91a9c5;margin-bottom:25px}.demo-info{margin-top:20px;padding:15px;background:#091626;border:1px solid #263c5a;border-radius:10px;color:#91a9c5;font-size:13px;line-height:1.7}.lineman-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.info-box{background:#091626;border:1px solid #263c5a;border-radius:10px;padding:15px}.info-title{color:#63b7ff;font-size:12px;font-weight:800;text-transform:uppercase;margin-bottom:12px}.info-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1c2e46;font-size:13px}.info-row:last-child{border-bottom:0}.label{color:#8299b5}.value{font-weight:700;text-align:right}.big-status{padding:20px;background:#091626;border:1px solid #263c5a;border-radius:11px;text-align:center;font-size:24px;font-weight:800}.grid-layout{display:grid;grid-template-columns:1fr 330px;gap:18px}.isolators{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.isolator{background:#091626;border:1px solid #293e5b;border-radius:12px;padding:20px;text-align:center}.lamp{width:34px;height:34px;border-radius:50%;background:#59697e;margin:auto auto 12px}.lamp.open{background:#35d399;box-shadow:0 0 20px rgba(53,211,153,.55)}.isolator-name{font-weight:800;font-size:13px}.isolator-state{margin-top:7px;font-weight:800}.lock{text-align:center;padding:20px;border-radius:12px;background:#091626;border:1px solid #263c5a}.lock.active{background:rgba(217,159,41,.08);border-color:#d99f29}.lock-title{font-size:21px;font-weight:800}.lock-description{color:#8fa6c1;margin-top:6px}.alert{padding:15px;border-radius:10px;margin-top:12px;background:rgba(251,113,133,.08);border:1px solid #6d3440;color:#ff9baa;font-weight:700}.alert-success{background:rgba(53,211,153,.08);border-color:#26765c;color:#70e4b5}.alert-test{background:rgba(72,168,255,.08);border-color:#28659a;color:#7ec7ff}.event-log{max-height:330px;overflow:auto;list-style:none;padding:0;margin:0}.event-log li{padding:9px 0;border-bottom:1px solid #1d3049;font-size:12px;color:#b9c8db}.protocol{color:#91a9c5;line-height:1.8;font-size:13px}.test-power{display:flex;align-items:center;justify-content:space-between;padding:15px;background:#091626;border:1px solid #263c5a;border-radius:10px}.test-indicator{font-weight:800}.on{color:#42d69b}.off{color:#8fa7c5}/* ISOLATION WARNING LIGHT */
+.isolation-warning{display:flex;align-items:center;justify-content:center;gap:7px;margin:10px auto 0;font-size:11px;font-weight:900;color:#ff9a9a;opacity:0;transition:opacity .25s ease}.warning-lamp{width:13px;height:13px;border-radius:50%;background:#5b1b25;box-shadow:0 0 0 rgba(255,60,75,0);border:1px solid #8c3340}.isolation-warning.active{opacity:1}.isolation-warning.active .warning-lamp{background:#ff3348;box-shadow:0 0 14px rgba(255,51,72,.9);animation:redBlink 1s ease-in-out infinite}.isolation-warning.delayed{animation:warningIn .25s ease-out}@keyframes redBlink{0%,100%{opacity:.35;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}@keyframes warningIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:900px){.grid-layout{grid-template-columns:1fr}}@media(max-width:700px){.lineman-grid,.isolators{grid-template-columns:1fr}.header-right{display:none}.container{padding:12px}}
+
+.workflow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:12px}
+.workflow-step{flex:1;min-width:105px;text-align:center;padding:11px 7px;border:1px solid #263c5a;background:#091626;border-radius:9px;font-size:11px;font-weight:800;color:#8299b5}
+.workflow-step.active{border-color:#48a8ff;background:rgba(72,168,255,.10);color:#7ec7ff;box-shadow:0 0 12px rgba(72,168,255,.10)}
+.workflow-step.done{border-color:#26765c;background:rgba(53,211,153,.08);color:#70e4b5}
+.workflow-arrow{color:#526983;font-weight:800}
+.interlock-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.interlock-item{background:#091626;border:1px solid #263c5a;border-radius:9px;padding:12px}
+.interlock-item .ilabel{display:block;color:#8299b5;font-size:11px;text-transform:uppercase;font-weight:800;margin-bottom:5px}
+.interlock-item .ivalue{font-weight:800;font-size:13px}
+.status-ok{color:#42d69b}.status-warn{color:#f4c95d}.status-block{color:#ff9baa}.status-blue{color:#7ec7ff}
+.reset-row{text-align:right;margin-top:-5px;margin-bottom:10px}
+.reset-btn{background:#263c5a;color:#dcecff;border:1px solid #405a78;padding:9px 13px;font-size:12px}
+.reset-btn:hover{background:#304968}
+@media(max-width:700px){.interlock-grid{grid-template-columns:1fr}.workflow-step{min-width:90px}}
+
+/* POLE & ISOLATOR VISUAL SIMULATION */
+.pole-sim{background:#071626;border:1px solid #29415f;border-radius:14px;padding:18px;margin-top:8px}
+.pole-sim-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.pole-sim-title{font-weight:800;font-size:14px}.pole-sim-note{font-size:11px;color:#8fa7c5}
+.pole-array{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pole-unit{background:#091626;border:1px solid #263c5a;border-radius:12px;padding:10px;text-align:center;min-width:0}
+.pole-unit svg{width:100%;height:190px;display:block}
+.pole-label{font-weight:800;font-size:13px;margin-top:2px}
+.pole-wire{stroke:#4fd1ff;stroke-width:5;stroke-linecap:round;transition:.25s}.pole-wire.off{stroke:#506277}
+.pole-metal{stroke:#9fb3c9;stroke-width:5;stroke-linecap:round}.pole-cross{stroke:#9fb3c9;stroke-width:7;stroke-linecap:round}
+.pole-insulator{fill:#d9e4ef;stroke:#526a84;stroke-width:2}
+.pole-blade,.pole-blade-line{stroke:#42d69b;stroke-width:8;stroke-linecap:round;transition:.35s;transform-box:fill-box;transform-origin:0 50%}.pole-blade.closed{transform:rotate(0deg)}.pole-blade.open{transform:rotate(-38deg);stroke:#f4c95d}
+.pole-gap{opacity:0;fill:#f4c95d;transition:.2s}.pole-gap.visible{opacity:1}
+.pole-status{margin-top:8px;padding:8px;border-radius:8px;font-weight:800;font-size:12px;background:#12243a}.pole-status.open{color:#42d69b;border:1px solid #26765c;background:rgba(53,211,153,.08)}.pole-status.closed{color:#7ec7ff;border:1px solid #28659a;background:rgba(72,168,255,.08)}
+.mechanical-state{font-size:10px;font-weight:800;color:#7ec7ff;text-align:right;margin-top:5px;letter-spacing:.5px}.isolation-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;color:#9fb1c6;font-size:11px}.legend-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;background:#42d69b}.legend-dot.closed{background:#48a8ff}.real-gap{color:#f4c95d;font-weight:800}
+@media(max-width:700px){.pole-array{grid-template-columns:1fr}.pole-unit svg{height:165px}}
+.sync-btn{margin-top:10px;padding:9px 14px;border:0;border-radius:10px;background:#29496b;color:#fff;font-weight:800;cursor:pointer}.sync-btn:active{transform:scale(.98)}
+</style>
+</head>
+<body>
+<header class="header"><div class="logo"><div class="logo-icon">⚡</div><div><div class="logo-title">LINEGUARD</div><div class="logo-subtitle" id="headerSubtitle">DIGITAL MAINTENANCE SAFETY SYSTEM</div></div></div><div class="header-right"><div class="online">● SYSTEM ONLINE</div><div class="station">GRID STATION: BARAMULLA</div></div></header>
+<div id="app"></div>
+<script>
+const path=location.pathname;
+async function api(url,options={}){const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),8000);try{const r=await fetch(url,{...options,cache:'no-store',credentials:'same-origin',signal:controller.signal,headers:{'Cache-Control':'no-cache',...(options.headers||{})}});const text=await r.text();let d;try{d=JSON.parse(text)}catch(e){throw new Error('Server returned an invalid response ('+r.status+').')}if(!r.ok && d.ok!==false) d.ok=false;return d}finally{clearTimeout(timer)}}
+function esc(v){return String(v??"").replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+async function login(){const user_id=document.getElementById('uid').value.trim();const password=document.getElementById('pw').value.trim();const m=document.getElementById('loginMsg');if(!user_id){m.textContent='Please select a lineman.';return}if(!password){m.textContent='Please enter password.';return}try{const d=await api('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id,password})});m.textContent=d.message||'Login failed.';if(d.ok)showLineman(d)}catch(e){m.textContent='Unable to connect to LineGuard server.'}}
+async function logout(){const d=await api('/api/logout',{method:'POST'});if(d.ok)showLogin();else alert(d.message)}
+async function resetDemo(){if(!confirm('Reset the LineGuard demo to IDLE? This will clear the active maintenance session.'))return;try{const d=await api('/api/reset',{method:'POST'});renderAll(d);if(path.includes('/grid'))alert('Demo reset successfully.');}catch(e){alert('Unable to reset the demo.')}}
+async function saveLocation(){const d=await api('/api/location',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({transformer:document.getElementById('transformer').value,mohalla:document.getElementById('mohalla').value,landmark:document.getElementById('landmark').value})});document.getElementById('locationMessage').textContent=d.message;renderAll(d)}
+let actionBusy=false;
+async function action(name){
+ if(actionBusy)return;
+ actionBusy=true;
+ try{
+   const d=await api('/api/action/'+name,{method:'POST'});
+   if(d && d.ok){renderAll(d);setTimeout(refresh,100);}
+   else{await refresh();alert((d&&d.message)||'Action could not be completed.');}
+ }catch(e){alert('LineGuard action failed: '+e.message);}
+ finally{actionBusy=false;}
+}
+function showLogin(){document.getElementById('app').innerHTML=`<div class="container"><div class="login-wrapper"><section class="card"><div class="login-icon">👷</div><div class="login-title">Lineman Authentication</div><div class="login-subtitle">LINEGUARD FIELD ACCESS</div><div class="inputs"><label>Select Lineman</label><select id="uid"><option value="">Select Lineman</option>${['Aamir Khan','Rizwan Ahmad','Adil Ahmad','Sameer Hussain','Imran Dar','Danish Ahmad','Faisal Rashid','Suhail Ahmad'].map((n,i)=>`<option value="LIN00${i+1}">${n}</option>`).join('')}</select><label>Password</label><input id="pw" type="password" placeholder="Enter password"><button class="blue" onclick="login()">LOGIN</button><div id="loginMsg" style="color:#ff9baa"></div></div><div class="demo-info"><b>Demo Password:</b> 1234<br><br>Select a lineman and enter the password to access the LineGuard field panel.</div></section></div></div>`}
+function showLineman(d){document.getElementById('app').innerHTML=`<div class="container"><section class="card"><div class="card-title"><h2>👷 LINEMAN FIELD PANEL</h2><span class="badge">AUTHENTICATED</span></div><div class="lineman-grid"><div class="info-box"><div class="info-title">Lineman Identity</div><div class="info-row"><span class="label">Name</span><span class="value" id="userName">—</span></div><div class="info-row"><span class="label">User ID</span><span class="value" id="userId">—</span></div><div class="info-row"><span class="label">Contact</span><span class="value" id="userContact">—</span></div><div class="info-row"><span class="label">Base Location</span><span class="value" id="userLocation">—</span></div></div><div class="info-box"><div class="info-title">Maintenance Location</div><label>Transformer</label><input id="transformer" placeholder="Transformer ID / Name"><label>Mohalla / Area</label><input id="mohalla" placeholder="Mohalla / Area"><label>Nearby Landmark</label><input id="landmark" placeholder="Nearby landmark"><button class="blue" onclick="saveLocation()">SAVE LOCATION</button><div id="locationMessage" style="color:#63b7ff"></div></div></div></section><section class="card"><div class="card-title"><h2>MAINTENANCE REQUEST</h2><span class="badge" id="linemanState">IDLE</span></div><div class="big-status" id="linemanStatus">SYSTEM READY</div><div id="linemanNext" class="alert-test" style="text-align:center;margin-top:12px">Next: save the work location, then press REPAIRING ON.</div><div style="text-align:center;margin-top:18px"><button class="blue" id="repairButton" onclick="action('repair_on')">🔧 REPAIRING ON</button><button class="purple" id="repairTestButton" onclick="action('repair_test')">🧪 REPAIRING TEST</button><button class="yellow" id="clearButton" onclick="action('clear')">✓ REPAIRING OFF / CLEAR</button><button class="green" id="safetyButton" onclick="action('safety_confirm')">🛡 SAFETY CONFIRMATION</button><button onclick="refresh()">↻ SYNC</button><button onclick="logout()">LOGOUT</button></div></section><section class="card"><div class="card-title"><h2>REQUEST INFORMATION</h2></div><div class="info-row"><span class="label">Request ID</span><span class="value" id="linemanRequestId">—</span></div><div class="info-row"><span class="label">Transformer</span><span class="value" id="linemanTransformer">—</span></div><div class="info-row"><span class="label">Mohalla</span><span class="value" id="linemanMohalla">—</span></div><div class="info-row"><span class="label">Landmark</span><span class="value" id="linemanLandmark">—</span></div></section><section class="card"><div id="linemanTestPanel"></div><div class="lock" id="linemanLock"><div class="lock-title">🔓 MAINTENANCE LOCK INACTIVE</div><div class="lock-description">No active maintenance session.</div></div></section></div>`;renderLineman(d)}
+function showGrid(d){document.getElementById('headerSubtitle').textContent='GRID CONTROL & MAINTENANCE MANAGEMENT SYSTEM';document.getElementById('app').innerHTML=`<div class="container"><div class="grid-layout"><main><div class="reset-row"><button class="reset-btn" onclick="resetDemo()">↻ RESET DEMO</button></div><section class="card"><div class="card-title"><h2>⚠ ACTIVE MAINTENANCE REQUEST</h2><span class="badge" id="requestBadge">NO ACTIVE REQUEST</span></div><div class="lineman-grid"><div class="info-box"><div class="info-title">Lineman Details</div><div class="info-row"><span class="label">Name</span><span class="value" id="gridName">—</span></div><div class="info-row"><span class="label">User ID</span><span class="value" id="gridUserId">—</span></div><div class="info-row"><span class="label">Contact</span><span class="value" id="gridContact">—</span></div><div class="info-row"><span class="label">Base Location</span><span class="value" id="gridLocation">—</span></div></div><div class="info-box"><div class="info-title">Work Location</div><div class="info-row"><span class="label">Request ID</span><span class="value" id="gridRequestId">—</span></div><div class="info-row"><span class="label">Transformer</span><span class="value" id="gridTransformer">—</span></div><div class="info-row"><span class="label">Mohalla</span><span class="value" id="gridMohalla">—</span></div><div class="info-row"><span class="label">Landmark</span><span class="value" id="gridLandmark">—</span></div></div></div></section><section class="card"><div class="card-title"><h2>SYSTEM OPERATIONAL STATUS</h2><span class="badge" id="gridStateBadge">IDLE</span></div><div class="big-status" id="gridStateText">SYSTEM READY</div><div id="gridMessage" style="color:#91a9c5;text-align:center;margin-top:10px">Waiting for maintenance request.</div></section>
+<section class="card">
+<div class="card-title"><h2>🛡 SAFETY WORKFLOW</h2><span class="badge">SEQUENCE</span></div>
+<div class="workflow" id="workflow">
+<div class="workflow-step" data-step="REQUESTED">1. REQUEST</div><div class="workflow-arrow">→</div>
+<div class="workflow-step" data-step="ISOLATING">2. ISOLATION</div><div class="workflow-arrow">→</div>
+<div class="workflow-step" data-step="MAINTENANCE_LOCKED">3. LOCK</div><div class="workflow-arrow">→</div>
+<div class="workflow-step" data-step="TEST_POWER_ON">4. TEST</div><div class="workflow-arrow">→</div>
+<div class="workflow-step" data-step="CLEAR_PENDING">5. CLEAR</div><div class="workflow-arrow">→</div>
+<div class="workflow-step" data-step="SAFETY_CONFIRMED">6. SAFETY</div><div class="workflow-arrow">→</div>
+<div class="workflow-step" data-step="RESTORING">7. RESTORE</div>
+</div>
+</section>
+<section class="card">
+<div class="card-title"><h2>🔒 SAFETY INTERLOCK STATUS</h2><span class="badge" id="interlockBadge">READY</span></div>
+<div class="interlock-grid">
+<div class="interlock-item"><span class="ilabel">Maintenance Lock</span><span class="ivalue" id="ilock">INACTIVE</span></div>
+<div class="interlock-item"><span class="ilabel">Restoration</span><span class="ivalue" id="irestore">AVAILABLE</span></div>
+<div class="interlock-item"><span class="ilabel">Test Power</span><span class="ivalue" id="itest">OFF</span></div>
+<div class="interlock-item"><span class="ilabel">Lineman Clearance</span><span class="ivalue" id="iclear">PENDING</span></div>
+<div class="interlock-item"><span class="ilabel">Safety Confirmation</span><span class="ivalue" id="isafety">PENDING</span></div>
+<div class="interlock-item"><span class="ilabel">Isolation Points</span><span class="ivalue" id="iisolation">3 / 3 CLOSED</span></div>
+</div>
+<div id="interlockReason" class="alert" style="margin-top:12px">System ready. No active maintenance session.</div>
+</section>
+<section class="card"><div class="card-title"><h2>⚡ THREE-POINT POLE & ISOLATOR SIMULATION</h2><span class="badge">VISUAL ISOLATION</span></div><div class="pole-sim"><div class="pole-sim-head"><div><div class="pole-sim-title">DISTRIBUTION LINE — THREE ISOLATION POINTS</div><div class="pole-sim-note">The blade visibly separates from the fixed contact when the point is OPEN.</div></div><div><div class="badge" id="isolationSummary">3 / 3 CLOSED</div><div class="mechanical-state" id="mechanicalState">MECHANISM READY</div></div></div><div class="pole-array">${[1,2,3].map(i=>`<div class="pole-unit"><svg viewBox="0 0 180 190" role="img" aria-label="Isolator ${i} visual simulation"><line x1="18" y1="38" x2="70" y2="38" class="pole-wire" id="wireL${i}"/><line x1="110" y1="38" x2="162" y2="38" class="pole-wire" id="wireR${i}"/><line x1="90" y1="55" x2="90" y2="165" class="pole-metal"/><line x1="45" y1="58" x2="135" y2="58" class="pole-cross"/><circle cx="70" cy="38" r="8" class="pole-insulator"/><circle cx="110" cy="38" r="8" class="pole-insulator"/><g class="pole-blade-group closed" id="isoVisual${i}" transform="rotate(0 70 38)"><line x1="70" y1="38" x2="110" y2="38" class="pole-blade-line"/></g><circle cx="110" cy="38" r="5" class="pole-gap" id="gap${i}"/><line x1="72" y1="62" x2="108" y2="62" class="pole-cross"/><line x1="78" y1="62" x2="78" y2="75" class="pole-metal"/><line x1="102" y1="62" x2="102" y2="75" class="pole-metal"/><path d="M76 75 L104 75 L98 85 L82 85 Z" class="pole-insulator"/><line x1="82" y1="85" x2="82" y2="158" class="pole-metal"/><line x1="98" y1="85" x2="98" y2="158" class="pole-metal"/><line x1="76" y1="158" x2="104" y2="158" class="pole-cross"/></svg><div class="pole-label">POLE ${i} • ISOLATOR ${i}</div><div class="pole-status closed" id="isoStatus${i}">CLOSED • CONNECTED</div><div class="isolation-warning" id="warning${i}"><span class="warning-lamp"></span><span>ISOLATION WARNING</span></div></div>`).join('')}</div><div class="isolation-legend"><span><span class="legend-dot closed"></span>CLOSED / CONNECTED</span><span><span class="legend-dot"></span>OPEN / ISOLATED</span><span class="real-gap">↕ Visible contact gap = isolated simulation</span></div></div><div style="text-align:center;margin-top:15px"><button class="blue" id="authorizeIsolation" onclick="action('authorize_isolation')">AUTHORIZE ISOLATION</button></div></section><section class="card"><div class="card-title"><h2>🧪 REPAIRING TEST</h2><span class="badge" id="testPowerBadge">TEST POWER OFF</span></div><div id="testPanel" class="alert-test">Waiting for lineman to request a Repairing Test.</div><div style="text-align:center;margin-top:15px"><button class="green" id="testPowerRestore" onclick="action('test_power_restore')">⚡ RESTORE POWER FOR TEST</button></div></section><section class="card"><div class="card-title"><h2>🔄 RESTORATION CONTROL</h2><span class="badge">GRID AUTHORIZATION</span></div><div id="restoreMessage" class="alert">Restoration requires completed test, clearance and safety confirmation.</div><div style="margin-top:15px;text-align:center"><button class="red" id="tryRestore" onclick="action('restore')">TRY RESTORE</button><button class="green" id="authorizeRestoration" onclick="action('authorize_restoration')">AUTHORIZE RESTORATION</button></div></section></main><aside><section class="card"><div class="card-title"><h2>SYSTEM HEALTH</h2><span class="badge">LIVE</span></div><div class="info-row"><span class="label">Communication</span><span class="value" style="color:#42d69b">● ONLINE</span></div><div class="info-row"><span class="label">Grid Controller</span><span class="value" style="color:#42d69b">● ONLINE</span></div><div class="info-row"><span class="label">Lineman Link</span><span class="value" id="gridConnection">WAITING</span></div></section><section class="card"><div class="card-title"><h2>EVENT LOG</h2></div><ul class="event-log" id="events"></ul></section><section class="card"><div class="card-title"><h2>CONTROL PROTOCOL</h2></div><div class="protocol"><p>1. Receive authenticated request</p><p>2. Verify work location</p><p>3. Authorize isolation</p><p>4. Verify three isolation points</p><p>5. Maintain digital lock</p><p>6. Lineman requests Repairing Test</p><p>7. Grid restores temporary test power</p><p>8. Lineman Repairing Off / Clear</p><p>9. Safety Confirmation</p><p>10. Grid authorizes final restoration</p></div></section><section class="card"><div class="card-title"><h2>🛡 SAFETY</h2></div><div class="protocol">Software-only demonstration. No real electrical equipment is controlled or verified.</div></section></aside></div></div>`;renderGrid(d)}
+const linemanNames={IDLE:'SYSTEM READY',REQUESTED:'REPAIR REQUEST SENT',ISOLATING:'ISOLATION IN PROGRESS',MAINTENANCE_LOCKED:'MAINTENANCE LOCK ACTIVE',TEST_REQUESTED:'REPAIRING TEST REQUESTED — WAITING FOR GRID',TEST_POWER_ON:'TEST POWER ON — PERFORM REPAIRING TEST',CLEAR_PENDING:'CLEARANCE RECEIVED — SAFETY CONFIRMATION REQUIRED',SAFETY_CONFIRMED:'SAFETY CONFIRMED — WAITING FOR GRID',RESTORING:'RESTORATION IN PROGRESS'};
+const gridNames={IDLE:'SYSTEM READY',REQUESTED:'MAINTENANCE REQUEST RECEIVED',ISOLATING:'ISOLATION IN PROGRESS',MAINTENANCE_LOCKED:'MAINTENANCE SESSION PROTECTED',TEST_REQUESTED:'REPAIRING TEST REQUESTED',TEST_POWER_ON:'SIMULATED TEST POWER ON',CLEAR_PENDING:'LINEMAN CLEAR RECEIVED',SAFETY_CONFIRMED:'SAFETY CONFIRMED — RESTORE AUTHORIZED'};
+function renderLineman(d){
+ if(!document.getElementById('userName'))return;
+ if(d.lineman){
+  userName.textContent=d.lineman.name;userId.textContent=d.lineman.user_id;userContact.textContent=d.lineman.contact;userLocation.textContent=d.lineman.location;
+ }
+ linemanState.textContent=d.state||'UNKNOWN';
+ linemanStatus.textContent=linemanNames[d.state]||d.state||'UNKNOWN';
+ linemanRequestId.textContent=d.request_id||'—';
+ if(d.work_location){
+  linemanTransformer.textContent=d.work_location.transformer||'—';linemanMohalla.textContent=d.work_location.mohalla||'—';linemanLandmark.textContent=d.work_location.landmark||'—';
+ }
+ repairButton.disabled=d.state!=='IDLE';
+ const allOpen=Array.isArray(d.isolators)&&d.isolators.length===3&&d.isolators.every(Boolean);
+ repairTestButton.disabled=!(d.state==='MAINTENANCE_LOCKED'||(d.state==='ISOLATING'&&allOpen));
+ clearButton.disabled=d.state!=='TEST_POWER_ON';
+ safetyButton.disabled=d.state!=='CLEAR_PENDING';
+ const next=document.getElementById('linemanNext');
+ const nextText={
+  IDLE:'Next: press REPAIRING ON to send the maintenance request to Grid Control.',
+  REQUESTED:'Next: Grid Control must press AUTHORIZE ISOLATION.',
+  ISOLATING:'Next: Grid Control is opening the 3 simulated isolators.',
+  MAINTENANCE_LOCKED:'Next: press REPAIRING TEST to request temporary test power.',
+  TEST_REQUESTED:'Next: Grid Control must press RESTORE POWER FOR TEST.',
+  TEST_POWER_ON:'Next: perform the simulated test, then press REPAIRING OFF / CLEAR.',
+  CLEAR_PENDING:'Next: press SAFETY CONFIRMATION.',
+  SAFETY_CONFIRMED:'Next: Grid Control must press AUTHORIZE RESTORATION.',
+  RESTORING:'Next: Grid Control is restoring the system.',
+  RESTORED:'System restored.'
+ }[d.state]||'Follow the Grid Control safety sequence.';
+ if(next)next.textContent=nextText;
+ const lock=document.getElementById('linemanLock');
+ if(['MAINTENANCE_LOCKED','TEST_REQUESTED','TEST_POWER_ON','CLEAR_PENDING','SAFETY_CONFIRMED'].includes(d.state)){
+  lock.className='lock active';
+  lock.innerHTML='<div class="lock-title">🔒 MAINTENANCE LOCK ACTIVE</div><div class="lock-description">'+(d.test_power_on?'⚡ SIMULATED TEST POWER IS ON':'Restoration remains digitally blocked.')+'</div>';
+ }else{
+  lock.className='lock';lock.innerHTML='<div class="lock-title">🔓 MAINTENANCE LOCK INACTIVE</div><div class="lock-description">No active maintenance session.</div>';
+ }
+ document.getElementById('linemanTestPanel').innerHTML=d.state==='TEST_REQUESTED'?'<div class="alert-test">🧪 Repairing Test request sent. Waiting for Grid to restore power for test.</div>':d.state==='TEST_POWER_ON'?'<div class="alert-success">⚡ TEST POWER ON — Complete the simulated test, then press REPAIRING OFF / CLEAR.</div>':d.state==='CLEAR_PENDING'?'<div class="alert-success">✓ TEST POWER OFF automatically. Clearance recorded. Now confirm safety.</div>':d.state==='SAFETY_CONFIRMED'?'<div class="alert-success">🛡 Safety confirmed. Waiting for Grid to authorize final restoration.</div>':'';
+}
+function workflowRank(state){
+ const order={REQUESTED:1,ISOLATING:2,MAINTENANCE_LOCKED:3,TEST_REQUESTED:3,TEST_POWER_ON:4,CLEAR_PENDING:5,SAFETY_CONFIRMED:6,RESTORING:7,IDLE:0};
+ return order[state]??0;
+}
+function renderWorkflow(state){
+ const steps=['REQUESTED','ISOLATING','MAINTENANCE_LOCKED','TEST_POWER_ON','CLEAR_PENDING','SAFETY_CONFIRMED','RESTORING'];
+ const rank=workflowRank(state);
+ document.querySelectorAll('#workflow .workflow-step').forEach(el=>{
+   const s=el.dataset.step, r=workflowRank(s);
+   el.className='workflow-step';
+   if(state!=='IDLE' && r<rank) el.classList.add('done');
+   if(s===state || (state==='TEST_REQUESTED' && s==='MAINTENANCE_LOCKED')) el.classList.add('active');
+ });
+}
+function renderInterlock(d){
+ const locked=['MAINTENANCE_LOCKED','TEST_REQUESTED','TEST_POWER_ON','CLEAR_PENDING','SAFETY_CONFIRMED'].includes(d.state);
+ const test=!!d.test_power_on;
+ const clear=['CLEAR_PENDING','SAFETY_CONFIRMED'].includes(d.state);
+ const safety=d.safety_confirmed;
+ const allOpen=(d.isolators||[]).every(Boolean);
+ const allClosed=(d.isolators||[]).every(v=>!v);
+ const $=id=>document.getElementById(id);
+ if(!$('ilock')) return;
+ $('ilock').textContent=locked?'ACTIVE 🔒':'INACTIVE';
+ $('ilock').className='ivalue '+(locked?'status-warn':'status-ok');
+ $('irestore').textContent=d.state==='SAFETY_CONFIRMED'?'AUTHORIZED':'BLOCKED';
+ $('irestore').className='ivalue '+(d.state==='SAFETY_CONFIRMED'?'status-ok':'status-block');
+ $('itest').textContent=test?'ON':'OFF';
+ $('itest').className='ivalue '+(test?'status-warn':'status-ok');
+ $('iclear').textContent=clear?'CONFIRMED':'PENDING';
+ $('iclear').className='ivalue '+(clear?'status-ok':'status-warn');
+ $('isafety').textContent=safety?'CONFIRMED':'PENDING';
+ $('isafety').className='ivalue '+(safety?'status-ok':'status-warn');
+ $('iisolation').textContent=allOpen?'3 / 3 OPEN':allClosed?'3 / 3 CLOSED':((d.isolators||[]).filter(Boolean).length)+' / 3 OPEN';
+ $('iisolation').className='ivalue '+(allOpen?'status-ok':allClosed?'status-blue':'status-warn');
+ $('interlockBadge').textContent=locked?'LOCK ACTIVE':d.state==='SAFETY_CONFIRMED'?'RESTORE READY':'READY';
+ $('interlockReason').className=locked?'alert':d.state==='SAFETY_CONFIRMED'?'alert alert-success':'alert';
+ if(d.state==='IDLE') $('interlockReason').textContent='System ready. No active maintenance session.';
+ else if(d.state==='SAFETY_CONFIRMED') $('interlockReason').textContent='✓ Lineman clearance and safety confirmation received. Grid may authorize final restoration.';
+ else if(test) $('interlockReason').textContent='⚠ Temporary simulated test power is ON. Final restoration remains blocked.';
+ else if(locked) $('interlockReason').textContent='🔒 Restoration is digitally blocked while the maintenance session is active.';
+ else $('interlockReason').textContent=d.message||'Safety sequence in progress.';
+}
+let isolationWarningTimer=null;let isolationWarningActive=false;function updateIsolationWarning(d){const isolated=(d.isolators||[]).every(Boolean)&&['ISOLATING','MAINTENANCE_LOCKED','TEST_REQUESTED','CLEAR_PENDING','SAFETY_CONFIRMED'].includes(d.state);if(!isolated){if(isolationWarningTimer){clearTimeout(isolationWarningTimer);isolationWarningTimer=null}isolationWarningActive=false;[1,2,3].forEach(n=>{const el=document.getElementById('warning'+n);if(el){el.classList.remove('active','delayed')}});return}if(isolationWarningActive)return;if(!isolationWarningTimer){isolationWarningTimer=setTimeout(()=>{isolationWarningTimer=null;isolationWarningActive=true;[1,2,3].forEach(n=>{const el=document.getElementById('warning'+n);if(el){el.classList.add('active','delayed')}})},2000)}}
+function renderGrid(d){if(!document.getElementById('gridName'))return;renderWorkflow(d.state);renderInterlock(d);updateIsolationWarning(d);if(d.lineman){gridName.textContent=d.lineman.name;gridUserId.textContent=d.lineman.user_id;gridContact.textContent=d.lineman.contact;gridLocation.textContent=d.lineman.location;gridConnection.textContent='● CONNECTED'}gridRequestId.textContent=d.request_id||'—';if(d.work_location){gridTransformer.textContent=d.work_location.transformer;gridMohalla.textContent=d.work_location.mohalla;gridLandmark.textContent=d.work_location.landmark}gridStateBadge.textContent=d.state;gridStateText.textContent=gridNames[d.state]||d.state;gridMessage.textContent=d.message||'Waiting for maintenance request.';d.isolators.forEach((open,i)=>{const n=i+1;const blade=document.getElementById('isoVisual'+n),status=document.getElementById('isoStatus'+n),gap=document.getElementById('gap'+n),wl=document.getElementById('wireL'+n),wr=document.getElementById('wireR'+n);if(blade){const wasOpen=blade.classList.contains('open');blade.className='pole-blade-group '+(open?'open':'closed');blade.setAttribute('transform',open?'rotate(-55 70 38)':'rotate(0 70 38)');const unit=blade.closest('.pole-unit');if(unit&&wasOpen!==open){unit.classList.remove('opening','closing');void unit.offsetWidth;unit.classList.add(open?'opening':'closing','operating');setTimeout(()=>unit.classList.remove('operating','opening','closing'),700)}}if(status){status.className='pole-status '+(open?'open':'closed');status.textContent=open?'OPEN • ISOLATED':'CLOSED • CONNECTED'}if(gap)gap.className='pole-gap '+(open?'visible':'');if(wl)wl.className='pole-wire'+(open?' off':'');if(wr)wr.className='pole-wire'+(open?' off':'')});const openCount=(d.isolators||[]).filter(Boolean).length;const sum=document.getElementById('isolationSummary');if(sum)sum.textContent=openCount===3?'3 / 3 OPEN':openCount===0?'3 / 3 CLOSED':openCount+' / 3 OPEN';const mech=document.getElementById('mechanicalState');if(mech)mech.textContent=openCount===3?'ALL ISOLATORS OPEN • LINE ISOLATED':openCount===0?'ALL ISOLATORS CLOSED • LINE CONNECTED':openCount+' / 3 ISOLATORS OPEN';authorizeIsolation.disabled=d.state!=='REQUESTED';testPowerRestore.disabled=d.state!=='TEST_REQUESTED';tryRestore.disabled=!['REQUESTED','ISOLATING','MAINTENANCE_LOCKED','TEST_REQUESTED','TEST_POWER_ON','CLEAR_PENDING','SAFETY_CONFIRMED'].includes(d.state);authorizeRestoration.disabled=d.state!=='SAFETY_CONFIRMED';testPowerBadge.textContent=d.test_power_on?'TEST POWER ON':'TEST POWER OFF';testPowerBadge.style.color=d.test_power_on?'#42d69b':'';testPanel.innerHTML=d.state==='TEST_REQUESTED'?'<div class="alert-test">🧪 LINEMAN REQUESTED REPAIRING TEST. Grid authorization required.</div>':d.state==='TEST_POWER_ON'?'<div class="alert-success">⚡ SIMULATED TEST POWER IS ON. Lineman may perform the test.</div>':d.state==='CLEAR_PENDING'||d.state==='SAFETY_CONFIRMED'?'<div class="alert-success">✓ TEST POWER OFF. Clearance/safety sequence is in progress.</div>':'<div class="alert-test">Waiting for lineman to request a Repairing Test.</div>';restoreMessage.innerHTML=d.state==='MAINTENANCE_LOCKED'||d.state==='TEST_REQUESTED'||d.state==='TEST_POWER_ON'?'<div class="alert">❌ RESTORATION BLOCKED — maintenance/test session active.</div>':d.state==='CLEAR_PENDING'?'<div class="alert-success">✓ CLEARANCE RECEIVED — SAFETY CONFIRMATION REQUIRED.</div>':d.state==='SAFETY_CONFIRMED'?'<div class="alert-success">✓ SAFETY CONFIRMED — GRID MAY AUTHORIZE FINAL RESTORATION.</div>':'Restoration requires completed test, clearance and safety confirmation.';events.innerHTML='';(d.events||[]).forEach(e=>{const li=document.createElement('li');li.textContent=e;events.appendChild(li)})}
+function renderAll(d){if(path.includes('/grid')){if(!document.getElementById('gridName'))showGrid(d);else renderGrid(d)}else if(path.includes('/lineman')){if(d.lineman){if(!document.getElementById('userName'))showLineman(d);else renderLineman(d)}else showLogin()}}
+async function refresh(force=false){try{const d=await api('/api/status?ts='+Date.now());if(path.includes('/grid')){if(!document.getElementById('gridName'))showGrid(d);else renderGrid(d)}else if(path.includes('/lineman')){if(d.lineman){if(!document.getElementById('userName'))showLineman(d);else renderLineman(d)}else if(!document.getElementById('uid')){showLogin()}}}catch(e){}}
+async function init(){const d=await api('/api/status');if(path.includes('/grid'))showGrid(d);else if(path.includes('/lineman'))d.lineman?showLineman(d):showLogin();else showLogin()}init();setInterval(refresh,1000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});window.addEventListener('focus',refresh);
+</script>
+</body>
+</html>
